@@ -1,5 +1,5 @@
 name: car_number_view
-description: A new Flutter project.
+description: car_number_view_flutter.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -15,7 +15,8 @@ description: A new Flutter project.
 # This version is used _only_ for the Runner app, which is used if you just do
 # a `flutter run` or a `flutter make-host-app-editable`. It has no impact
 # on any other native host app that you embed your Flutter project into.
-version: 1.0.0+1
+version: 1.0.0
+homepage: https://github.com/CuiChenbo/car_number_view
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
