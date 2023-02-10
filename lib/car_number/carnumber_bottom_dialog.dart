@@ -20,7 +20,7 @@ openCarNumberViewRoute(BuildContext context , String carNumber){
     pageBuilder: (context, animation, secondaryAnimation){
       return SlideTransition(
         position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(animation),
-        child: Scaffold(
+        child: const Scaffold(
             backgroundColor: Colors.black38,
             body: Align(
                 alignment: AlignmentDirectional.bottomCenter,
@@ -55,7 +55,7 @@ class _CarNumberViewViewState extends State<CarNumberViewView> {
     return Container(
         width: ScreenUtils.getScreenWidth(context),
         height: (380),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Colors.white,
           borderRadius: BorderRadius.only(topLeft: Radius.circular(5) , topRight: Radius.circular(5) ,)
         ),
