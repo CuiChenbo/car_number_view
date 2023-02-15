@@ -1,3 +1,4 @@
+import 'package:car_number_view/main.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/color_res.dart';
@@ -10,7 +11,7 @@ openCarNumberViewDialog(BuildContext context , String carNumber){
   showModalBottomSheet(context: context,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       builder: (w){
-    return CarNumberViewView();
+    return CarNumberKeyView(carNumber);
   });
 }
 //通过路由的方式打开
@@ -20,11 +21,11 @@ openCarNumberViewRoute(BuildContext context , String carNumber){
     pageBuilder: (context, animation, secondaryAnimation){
       return SlideTransition(
         position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(animation),
-        child: const Scaffold(
+        child:  Scaffold(
             backgroundColor: Colors.black38,
             body: Align(
                 alignment: AlignmentDirectional.bottomCenter,
-                child: CarNumberViewView())),
+                child: CarNumberKeyView(carNumber))),
       );
 
     },
@@ -32,14 +33,16 @@ openCarNumberViewRoute(BuildContext context , String carNumber){
 }
 
 ///车牌号数据框+车牌号键盘-底部弹框
-class CarNumberViewView extends StatefulWidget {
-  const CarNumberViewView({Key? key}) : super(key: key);
+class CarNumberKeyView extends StatefulWidget {
+  const CarNumberKeyView(this.car_number , {Key? key}) : super(key: key);
+
+  final String? car_number;
 
   @override
-  State<CarNumberViewView> createState() => _CarNumberViewViewState();
+  State<CarNumberKeyView> createState() => _CarNumberKeyViewState();
 }
 
-class _CarNumberViewViewState extends State<CarNumberViewView> {
+class _CarNumberKeyViewState extends State<CarNumberKeyView> {
 
   final String mABC = "ABC";
   final String mProvince = "省份";
@@ -48,6 +51,13 @@ class _CarNumberViewViewState extends State<CarNumberViewView> {
   String carNumber = "";
   bool isInputABC = false;
   int maxCarNumberLength = 8;
+
+  @override
+  initState(){
+    super.initState();
+    carNumber = widget.car_number??'';
+    isInputABC = carNumber.isNotEmpty;
+  }
 
 
   @override
@@ -74,6 +84,7 @@ class _CarNumberViewViewState extends State<CarNumberViewView> {
                   Text("编辑车牌" , style: TextStyle(color: color_00131D , fontSize: (16)),),
                   InkWell(
                     onTap: carNumber.length > 6 ?(){
+                      mCarNumber.value = carNumber;
                       Navigator.pop(context);
                     } : null,
                     child: Container(
@@ -172,7 +183,7 @@ class _CarNumberViewViewState extends State<CarNumberViewView> {
             isInputABC = !isInputABC;
           }else if(text == mDelete) {
             carNumber = carNumber.substring(0, carNumber.isNotEmpty ? carNumber.length - 1 : 0);
-            if(carNumber.isEmpty) isInputABC = false; //自动切换省份or字母逻辑
+            isInputABC = carNumber.isNotEmpty; //自动切换省份or字母逻辑
           }else if(carNumber.length < maxCarNumberLength){
             carNumber += text;
             isInputABC = true; //自动切换省份or字母逻辑

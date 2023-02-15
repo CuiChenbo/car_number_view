@@ -28,7 +28,7 @@ class CarNumberViewOverlay{
         return Align(
           alignment: AlignmentDirectional.bottomCenter,
           child: Material(
-              child: CarNumberKeyboard(carNumberChanged)),
+              child: CarNumberKeyboard('',carNumberChanged)),
         );
       },
     );

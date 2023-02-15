@@ -1,18 +1,20 @@
 import 'package:car_number_view/car_number/carnumber_keyboard.dart';
+import 'package:car_number_view/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/color_res.dart';
 
 //通过路由的方式打开
-openAddCarNumberRoute(BuildContext context) {
+openAddCarNumberRoute(BuildContext context , String carN) {
   Navigator.push(context, CupertinoPageRoute(builder: (context) {
-    return AddCarnumberPage();
+    return AddCarnumberPage(carN);
   }));
 }
 
 class AddCarnumberPage extends StatefulWidget {
-  const AddCarnumberPage({Key? key}) : super(key: key);
+  const AddCarnumberPage(this.car_number , {Key? key}) : super(key: key);
+  final String? car_number;
 
   @override
   State<AddCarnumberPage> createState() => _AddCarnumberPageState();
@@ -35,6 +37,7 @@ class _AddCarnumberPageState extends State<AddCarnumberPage> with SingleTickerPr
   Animation<Offset>? _animation;
   @override
   void initState() {
+    _carController.text = widget.car_number??'';
     _animationController =
         AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
     _animation = Tween( begin: const Offset(0.0, 1.0),
@@ -134,18 +137,19 @@ class _AddCarnumberPageState extends State<AddCarnumberPage> with SingleTickerPr
             alignment: AlignmentDirectional.bottomCenter,
             child: SlideTransition(
                   position: _animation!,
-                  child: CarNumberKeyboard((n, t) {
-                    if (t == "完成") {
+                  child: CarNumberKeyboard( mCarNumber.value , (carNumber, text) {
+                    if (text == "完成") {
+                      mCarNumber.value = carNumber;
                       setState(() {
                         showKeyboard = false;
                         _animationController?.reverse();
                       });
                     }
                     _carController.value = TextEditingValue(
-                        text: n,
+                        text: carNumber,
                         selection: TextSelection.fromPosition(TextPosition(
                             affinity: TextAffinity.downstream,
-                            offset: n.length)));
+                            offset: carNumber.length)));
                   }),
                 ),
           ),

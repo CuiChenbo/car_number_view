@@ -9,6 +9,9 @@ import 'utils/screen_utils.dart';
 
 void main() => runApp(const MyApp());
 
+ValueNotifier<String> mCarNumber = ValueNotifier('');
+
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -42,6 +45,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,13 +54,24 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: [
           SizedBox(height: 20,),
+
+          ValueListenableBuilder<String>(
+            valueListenable: mCarNumber,
+            builder: (BuildContext context, value, Widget? child) {
+              return
+              ButtonView(() {
+              }, '当前号码： $value');
+            },
+          ),
+
+
           ButtonView(() {
-            openCarNumberViewDialog(context, "");
+            openCarNumberViewDialog(context, mCarNumber.value);
           }, "底部弹框-车牌号"),
 
           ButtonView(() {
-            openCarNumberKeyboardRoute(context, (n , t){
-              print("object - $t");
+            openCarNumberKeyboardRoute(context, mCarNumber.value , (n , t){
+              mCarNumber.value = n;
               if(t == "完成"){
                 Navigator.pop(context);
               }
@@ -63,11 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
           }, "键盘弹框页面"),
 
           ButtonView(() {
-            openAddCarNumberRoute(context);
+            openAddCarNumberRoute(context , mCarNumber.value);
           }, "新页面添加车牌号"),
 
           ButtonView(() {
             CarNumberViewOverlay.getInstance().showKeyboard(context, (carNumber, value) {
+              mCarNumber.value = carNumber;
               if(value == "完成"){
                 CarNumberViewOverlay.getInstance().hideKeyboard();
               }
