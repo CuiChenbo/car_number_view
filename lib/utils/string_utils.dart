@@ -9,4 +9,13 @@ class StringUtils {
     return list;
   }
 
+  static String stringListToString(List<String> list){
+    var text = '';
+    for(int i = 0; i < list.length ; i++){
+      text+=list[i];
+    }
+    return text;
+  }
+
+
 }

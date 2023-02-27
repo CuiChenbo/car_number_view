@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'car_number/add_carnumber_page.dart';
 import 'car_number/carnumber_bottom_dialog.dart';
+import 'car_number/carnumber_bottom_dialog_new.dart';
 import 'utils/color_res.dart';
 import 'utils/screen_utils.dart';
 
@@ -68,6 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ButtonView(() {
             openCarNumberViewDialog(context, mCarNumber.value);
           }, "底部弹框-车牌号"),
+
+          ButtonView(() {
+            openCarNumberViewDialogNew(context, mCarNumber.value);
+          }, "底部弹框(可选择焦点)-车牌号"),
 
           ButtonView(() {
             openCarNumberKeyboardRoute(context, mCarNumber.value , (n , t){
