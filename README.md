@@ -1,11 +1,7 @@
 # car_number_view
 
-A new Flutter project.
+车牌号键盘和输入框，可切换省份和ABC
 
 ## Getting Started
 
-For help getting started with Flutter development, view the online
-[documentation](https://flutter.dev/).
-
-For instructions integrating Flutter modules to your existing applications,
-see the [add-to-app documentation](https://flutter.dev/docs/development/add-to-app).
+### 简介： https://cuichen.blog.csdn.net/article/details/129047092
